@@ -24,6 +24,7 @@ export class EventsController {
         total: result.totalEvents,
         page,
         limit,
+        hasMore: result.hasMore,
       };
     } catch (error) {
       console.error('Error fetching events:', error);

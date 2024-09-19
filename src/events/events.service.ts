@@ -12,7 +12,7 @@ export class EventsService {
       const skip = (page - 1) * limit;
       const events = await this.prisma.event.findMany({
         skip,
-        take: limit,
+        take: limit + 1,
         include: { registrants: true },
       });
 
@@ -22,10 +22,13 @@ export class EventsService {
         }
       });
 
+      const hasMore = events.length > limit;
+
       const totalEvents = await this.prisma.event.count();
 
       return {
         events,
+        hasMore,
         totalEvents,
       };
     } catch (error) {
